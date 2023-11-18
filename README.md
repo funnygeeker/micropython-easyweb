@@ -1,3 +1,4 @@
+[简体中文 (Chinese)](./README.ZH-CN.md)
 # micropython-easyweb
 ![EasyWeb](./web/EasyWeb_256px.png)
 - Web Server library for `Micropython`: Simple, easy-to-use, versatile, highly compatible
