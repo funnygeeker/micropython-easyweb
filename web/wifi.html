@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>配置页面</title>
+    <style>
+        /* 渐变色背景 */
+        body {
+             background-image: linear-gradient(45deg, #f5c359 0%, #8df8fd 100%);
+             }
+
+        /* 居中 */
+        .center {
+          text-align: center;
+          margin: auto;
+        }
+        /* 输入框样式 */
+        button,
+        input,
+        select {
+          outline-style: none;
+          /* border: 1px solid #ccc; */
+          border: none;
+          border-radius: 31px;
+          padding: 14px 14px;
+          width: 80%;
+          font-size: 24px;
+          /* 磨砂背景 */
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(8px);
+        box-shadow:inset 0 0 6px rgba(255, 255, 255, 0.2);
+    }
+
+        /* 按钮样式 */
+        .button {
+          width: 40%;
+          line-height: 28px;
+          border: 1px solid #09f;
+          border-radius: 31px;
+          background-color: #39f;
+          text-align: center;
+        }
+
+        .button:active {
+          transform: translateY(2px);
+          box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .button:hover {
+          background-color: rgb(0, 118, 197);
+          color: #000000;
+        }
+
+        /* 按钮间距 */
+        .button-spacing {
+          letter-spacing: 16px;
+        }
+
+        /* 标签样式 */
+        label {
+          font-size: 130%;
+        }
+
+        div{
+          max-width: 512px;
+        }
+    </style>
+</head>
+
+<body>
+<form name="form1" method="post" action="">
+    <div class="center">
+        <header>
+            <h1>基本设置</h1>
+        </header>
+        <main>
+            <section>
+                <h2>网络</h2>
+                <p>
+                    <label for="ssid">WiFi名称</label><br>
+                    <input type="text" name="ssid" id="ssid" tabindex="0"/>
+                </p>
+                <p>
+                    <label for="password">WiFi密码</label><br>
+                    <input type="text" name="password" id="password" tabindex="1"/>
+                </p>
+            </section>
+
+            <section>
+                <h2>应用设置</h2>
+                <h3>时间</h3>
+                <p>
+                    <label for="time">设置时间</label><br>
+                    <input id="time" type="time"/>
+                </p>
+                <p>
+
+                    <label for="date">设置日期</label><br>
+                    <input id="date" type="date"/>
+                </p>
+                <h3>天气</h3>
+                <p>
+                    <label for="select">选择城市</label><br>
+                    <select name="select" id="select">
+                        <option value="null">未选择</option>
+                        <option value="guangdong">广东</option>
+                        <option value="hunan">湖南</option>
+                        <option value="fujian">福建</option>
+                    </select>
+                </p>
+            </section>
+        </main>
+        <br>
+        <footer class="center">
+            <p class="button-spacing">
+                <label>
+                    <button type="submit" class="button" name="button" id="button">保存设置</button>
+                </label>
+                <label>
+                    <button type="reset" class="button" name="button2" id="button2">清空设置</button>
+                </label>
+            </p>
+        </footer>
+    </div>
+</form>
+</body>
+
+</html>
