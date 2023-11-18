@@ -11,7 +11,7 @@
 - There are three versions of files available in this project, please choose according to your specific needs:
 - `thread`: `/libs/easyweb_thread.py` implemented using multi-threading
 - `asyncio`: `/libs/easyweb.py` implemented using asynchronous programming, with good compatibility and reliability
-- `single`: `/libs/easyweb_thread.py` implemented using single-threaded looping, with good compatibility
+- `single`: `/libs/easyweb_single.py` implemented using single-threaded looping, with good compatibility
 
 ### Compatibility
 #### Tested Devices

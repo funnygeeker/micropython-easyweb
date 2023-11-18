@@ -12,7 +12,7 @@
 - 本项目一共有三个版本的文件，请根据实际需要进行选择：
 - `thread`: `/libs/easyweb_thread.py` 使用多线程实现
 - `asyncio`: `/libs/easyweb.py` 使用异步实现，具有较好的兼容性和可靠性
-- `single`: `/libs/easyweb_thread.py` 使用单线程循环实现，具有较好的兼容性
+- `single`: `/libs/easyweb_single.py` 使用单线程循环实现，具有较好的兼容性
 
 ### 兼容性
 #### 已通过测试设备
