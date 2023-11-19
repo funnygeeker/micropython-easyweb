@@ -65,26 +65,25 @@ class _Request:
     Note:
         在解析数据时，如果出现异常，则返回 None。
     """
-    path: str = ''
-    '请求路径'
-    data: bytes = b''
-    '请求体'
-    method: str = ""
-    '请求方法，例如 GET, POST'
-    headers: dict = {}
-    '请求头 (字典)'
-    protocol: str = ""
-    'HTTP 协议版本'
-    full_path: str = ""
-    '完整路径'
-    match: str = None
-    '匹配的结果'
-
     def __init__(self):
         self._url = None
         self._args = None
         self._form = None
         self._json = None
+        self.path: str = ''
+        '请求路径'
+        self.data: bytes = b''
+        '请求体'
+        self.method: str = ""
+        '请求方法，例如 GET, POST'
+        self.headers: dict = {}
+        '请求头 (字典)'
+        self.protocol: str = ""
+        'HTTP 协议版本'
+        self.full_path: str = ""
+        '完整路径'
+        self.match: str = None
+        '匹配的结果'
 
     @property
     def url(self):
@@ -336,7 +335,10 @@ class EasyWeb:
                         # 获取请求体
                         size = int(request.headers.get("Content-Length", 0))
                         if size:
-                            request.data = await asyncio.wait_for(reader.read(size), timeout=3)
+                            try:
+                                request.data = await asyncio.wait_for(reader.read(size), timeout=3)
+                            except asyncio.TimeoutError as e:
+                                print('[WARN] Asyncio TimeoutError: {}'.format(e))
                         else:
                             request.data = None
                         # 调用路由处理函数并发送响应
