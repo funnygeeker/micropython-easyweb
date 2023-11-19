@@ -336,9 +336,9 @@ class EasyWeb:
                         size = int(request.headers.get("Content-Length", 0))
                         if size:
                             try:
-                                request.data = await asyncio.wait_for(reader.read(size), timeout=3)
+                                request.data = await asyncio.wait_for(reader.read(size), timeout=5)
                             except asyncio.TimeoutError as e:
-                                print('[WARN] Asyncio TimeoutError: {}'.format(e))
+                                raise OSError('[ERROR] Asyncio TimeoutError: {}'.format(e))
                         else:
                             request.data = None
                         # 调用路由处理函数并发送响应

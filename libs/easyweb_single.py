@@ -290,7 +290,7 @@ class EasyWeb:
             conn: 用于从客户端读取请求数据和发送响应的对象
         """
         request = _Request()
-        conn.settimeout(3)
+        conn.settimeout(5)
         try:
             raw = conn.readline()  # HTTP 请求方法，路径，协议版本
             raw = raw.decode('utf-8').split(" ")
