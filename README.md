@@ -1,6 +1,5 @@
 [简体中文 (Chinese)](./README.ZH-CN.md)
 # micropython-easyweb
-# micropython-easyweb
 
 ![EasyWeb](./web/EasyWeb_256px.png)
 - Web Server Library for Micropython: Easy to use, versatile, highly compatible
