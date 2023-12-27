@@ -17,7 +17,9 @@
 ### 兼容性
 #### 已通过测试设备
 - `ESP-01S`: `single`
+- `ESP32`: `single`, `thread`, `asyncio`
 - `ESP32-C3`: `single`, `thread`, `asyncio`
+- `ESP32-S3`: `single`, `thread`, `asyncio`
 
 
 ### 示例代码

@@ -17,7 +17,9 @@
 ### Compatibility
 #### Tested Devices
 - `ESP-01S`: `single`
+- `ESP32`: `single`, `thread`, `asyncio`
 - `ESP32-C3`: `single`, `thread`, `asyncio`
+- `ESP32-S3`: `single`, `thread`, `asyncio`
 
 ### Sample Code
 - Here we use [micropython-easynetwork](https://github.com/funnygeeker/micropython-easynetwork) as an example to connect to the local network (it can also work in AP mode, allowing other devices to connect to the development board).
