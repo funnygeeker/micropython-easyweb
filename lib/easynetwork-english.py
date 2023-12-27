@@ -1,4 +1,3 @@
-```python
 import network
 
 class Client(network.WLAN):

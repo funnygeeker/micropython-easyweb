@@ -2,7 +2,7 @@
 
 # micropython-easyweb
 ![EasyWeb](./web/EasyWeb_256px.png)
-- 适用于 `Micropython` 的：Web Server 库，简单，易用，多功能，高兼容性
+- 适用于 `Micropython` 的：简易 Web Server 库，易用，多功能
 
 ### 特点
 - 尽可能模仿了 `Flask` 框架的风格
@@ -10,9 +10,9 @@
 
 ### 使用说明
 - 本项目一共有三个版本的文件，请根据实际需要进行选择：
-- `thread`: `/libs/easyweb_thread.py` 使用多线程实现
-- `asyncio`: `/libs/easyweb.py` 使用异步实现，具有较好的兼容性和可靠性
-- `single`: `/libs/easyweb_single.py` 使用单线程循环实现，具有较好的兼容性
+- `thread`: `/lib/easyweb_thread.py` 使用多线程实现
+- `asyncio`: `/lib/easyweb.py` 使用异步实现，具有较好的兼容性和可靠性
+- `single`: `/lib/easyweb_single.py` 使用单线程循环实现，具有较好的兼容性
 
 ### 兼容性
 #### 已通过测试设备
@@ -24,8 +24,8 @@
 - 这里我们使用 [micropython-easynetwork](https://github.com/funnygeeker/micropython-easynetwork) 作为示例，连接局域网（也可以工作在AP模式，使用其他设备连接开发板）
 ```python
 import time
-from libs.easynetwork import Client
-from libs.easyweb import EasyWeb, render_template, send_file, make_response
+from lib.easynetwork import Client
+from lib.easyweb import EasyWeb, render_template, send_file, make_response
 
 client = Client()
 client.connect("ssid", "password")  # 或者 client.connect("ssid", "")

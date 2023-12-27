@@ -1,6 +1,6 @@
 import time
-from libs.easynetwork import Client
-from libs.easyweb import EasyWeb, render_template, send_file, make_response
+from lib.easynetwork import Client
+from lib.easyweb import EasyWeb, render_template, send_file, make_response
 
 client = Client()
 client.connect("ssid", "password")  # 或者 client.connect("ssid", "")

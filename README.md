@@ -2,7 +2,7 @@
 # micropython-easyweb
 
 ![EasyWeb](./web/EasyWeb_256px.png)
-- Web Server Library for Micropython: Easy to use, versatile, highly compatible
+- A simple and versatile web server library for `Micropython`, easy to use.
 
 ### Features
 - Aims to mimic the style of the Flask framework as much as possible
@@ -10,9 +10,9 @@
 
 ### Instructions
 - There are three versions of the project files, please choose the one that suits your needs:
-- `thread`: `/libs/easyweb_thread.py` - implemented with multithreading
-- `asyncio`: `/libs/easyweb.py` - implemented with asynchronous support, provides better compatibility and reliability
-- `single`: `/libs/easyweb_single.py` - implemented with a single thread loop, provides good compatibility
+- `thread`: `/lib/easyweb_thread.py` - implemented with multithreading
+- `asyncio`: `/lib/easyweb.py` - implemented with asynchronous support, provides better compatibility and reliability
+- `single`: `/lib/easyweb_single.py` - implemented with a single thread loop, provides good compatibility
 
 ### Compatibility
 #### Tested Devices
@@ -23,8 +23,8 @@
 - Here we use [micropython-easynetwork](https://github.com/funnygeeker/micropython-easynetwork) as an example to connect to the local network (it can also work in AP mode, allowing other devices to connect to the development board).
 ```python
 import time
-from libs.easynetwork import Client
-from libs.easyweb import EasyWeb, render_template, send_file, make_response
+from lib.easynetwork import Client
+from lib.easyweb import EasyWeb, render_template, send_file, make_response
 
 client = Client()
 client.connect("ssid", "password")  # or client.connect("ssid", "")
