@@ -1,5 +1,22 @@
 import network
 
+
+def _active(func):
+    """
+    检查 WLAN 是否开启，若未开启，则开启后关闭
+    """
+    def change_active(self, *args, **kwargs):
+        if not self.active():  # wlan 不常用时尽量减小功耗
+            self.active(True)
+            result = func(self, *args, **kwargs)
+            self.active(False)
+            return result
+        else:
+            return func(self, *args, **kwargs)
+
+    return change_active
+
+
 class Client(network.WLAN):
     def __init__(self):
         super().__init__(network.STA_IF)
@@ -17,11 +34,11 @@ class Client(network.WLAN):
             bssid: 无线网络名称相符时，连接指定 MAC地址 的设备，（默认不指定）
             reconnects: 重新连接尝试次数（int, 0=无，-1=无限制）
         """
-        if not super().active():
-            super().active(True)
+        super().active(True)
         super().disconnect()
         super().connect(*args, **kwargs)
 
+    @_active
     def scan(self) -> list:
         """
         扫描无线网络
@@ -30,14 +47,9 @@ class Client(network.WLAN):
             List[Tuple[bytes, bytes, int, int, int, bool]]
             [(ssid, bssid, channel, RSSI, security, hidden), ...]
         """
-        if not super().active():  # 不常用时尽量减小功耗
-            super().active(True)
-            result = super().scan()
-            super().active(False)
-            return result
-        else:
-            return super().scan()
+        return super().scan()
 
+    @_active
     def config(self, *args, **kwargs):
         """
         获取或设置常规网络接口参数
@@ -73,7 +85,7 @@ class Client(network.WLAN):
         """
         return super().active(*args, **kwargs)
 
-    def status(self):
+    def status(self, *args, **kwargs):
         """
         获取网络连接状态
 
@@ -87,7 +99,7 @@ class Client(network.WLAN):
             network.STAT_HANDSHAKE_TIMEOUT – 因握手超时而连接失败 (204)
             network.STAT_GOT_IP – 连接成功 (1010)
         """
-        return super().status()
+        return super().status(*args, **kwargs)
 
     def isconnected(self) -> bool:
         """
@@ -107,6 +119,7 @@ class Client(network.WLAN):
             super().disconnect()
             super().active(False)  # 关闭 WIFI 接口
 
+    @_active
     def ifconfig(self, *args, **kwargs) -> tuple:
         """
         获取或设置IP级网络接口参数。
@@ -127,7 +140,6 @@ class Client(network.WLAN):
         return super().ifconfig(*args, **kwargs)
 
 
-
 class AP(network.WLAN):
     def __init__(self):
         super().__init__(network.AP_IF)
@@ -135,6 +147,7 @@ class AP(network.WLAN):
         self.PM_PERFORMANCE = 1
         self.PM_POWERSAVE = 2
 
+    @_active
     def config(self, *args, **kwargs):
         """
         获取或设置常规网络接口参数
@@ -179,6 +192,7 @@ class AP(network.WLAN):
                 super().config(security=0)
         return super().config(*args, **kwargs)
 
+    @_active
     def ifconfig(self, *args, **kwargs) -> tuple:
         """
         获取或设置IP级网络接口参数。

@@ -1,5 +1,22 @@
 import network
 
+
+def _active(func):
+    """
+    Check whether WLAN is turned on, if not, turn it on and turn it off
+    """
+    def change_active(self, *args, **kwargs):
+        if not self.active():  # wlan 不常用时尽量减小功耗
+            self.active(True)
+            result = func(self, *args, **kwargs)
+            self.active(False)
+            return result
+        else:
+            return func(self, *args, **kwargs)
+
+    return change_active
+
+
 class Client(network.WLAN):
     def __init__(self):
         super().__init__(network.STA_IF)
@@ -17,11 +34,11 @@ class Client(network.WLAN):
             bssid: Connects to a specific device with the specified MAC address if the network name matches (default: None).
             reconnects: The number of reconnection attempts (int, 0 for no limit, -1 for unlimited).
         """
-        if not super().active():
-            super().active(True)
+        super().active(True)
         super().disconnect()
         super().connect(*args, **kwargs)
 
+    @_active
     def scan(self) -> list:
         """
         Scans for wireless networks.
@@ -30,14 +47,9 @@ class Client(network.WLAN):
             List of tuples containing information about each network:
             [(ssid, bssid, channel, RSSI, security, hidden), ...]
         """
-        if not super().active():
-            super().active(True)
-            result = super().scan()
-            super().active(False)
-            return result
-        else:
-            return super().scan()
+        return super().scan()
 
+    @_active
     def config(self, *args, **kwargs):
         """
         Gets or sets general network interface parameters.
@@ -73,7 +85,7 @@ class Client(network.WLAN):
         """
         return super().active(*args, **kwargs)
 
-    def status(self):
+    def status(self, *args, **kwargs):
         """
         Gets the network connection status.
 
@@ -87,7 +99,7 @@ class Client(network.WLAN):
             network.STAT_HANDSHAKE_TIMEOUT - Connection failed due to handshake timeout (204)
             network.STAT_GOT_IP - Connection successful (1010)
         """
-        return super().status()
+        return super().status(*args, **kwargs)
 
     def isconnected(self) -> bool:
         """
@@ -107,6 +119,7 @@ class Client(network.WLAN):
             super().disconnect()
             super().active(False)  # Disable the Wi-Fi interface.
 
+    @_active
     def ifconfig(self, *args, **kwargs) -> tuple:
         """
         Gets or sets IP-level network interface parameters.
@@ -127,7 +140,6 @@ class Client(network.WLAN):
         return super().ifconfig(*args, **kwargs)
 
 
-
 class AP(network.WLAN):
     def __init__(self):
         super().__init__(network.AP_IF)
@@ -135,6 +147,7 @@ class AP(network.WLAN):
         self.PM_PERFORMANCE = 1
         self.PM_POWERSAVE = 2
 
+    @_active
     def config(self, *args, **kwargs):
         """
         Gets or sets general network interface parameters.
@@ -178,6 +191,7 @@ class AP(network.WLAN):
                 super().config(security=0)
         return super().config(*args, **kwargs)
 
+    @_active
     def ifconfig(self, *args, **kwargs) -> tuple:
         """
         Gets or sets IP-level network interface parameters.
