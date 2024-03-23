@@ -65,22 +65,28 @@ def url_encode(url):
 
 
 def url_decode(encoded_url):
-    """URL 解码"""
+    """
+    URL 解码
+    """
+    encoded_url = encoded_url.replace('+', ' ')
+    # 如果 URL 中不包含'%', 则表示已解码，直接返回原始 URL
     if '%' not in encoded_url:
         return encoded_url
-    blocks = encoded_url.split('%')
-    decoded_url = blocks[0]
-    buffer = ""
+    blocks = encoded_url.split('%')  # 以 '%' 分割 URL
+    decoded_url = blocks[0]  # 初始化解码后的 URL
+    buffer = ""  # 初始化缓冲区
+
     for b in blocks[1:]:
         if len(b) == 2:
-            buffer += b[:2]
-        else:
+            buffer += b[:2]  # 如果是两位的十六进制数，加入缓冲区
+        else:  # 解码相应的十六进制数并将其解码的字符加入解码后的 URL 中
             decoded_url += binascii.unhexlify(buffer + b[:2]).decode('utf-8')
-            buffer = ""
-            decoded_url += b[2:]
+            buffer = ""  # 清空缓冲区
+            decoded_url += b[2:]  # 将剩余部分直接加入解码后的 URL 中
+    # 处理缓冲区尾部剩余的十六进制数
     if buffer:
         decoded_url += binascii.unhexlify(buffer).decode('utf-8')
-    return decoded_url
+    return decoded_url  # 返回解码后的 URL
 
 
 class _Response:
@@ -200,7 +206,7 @@ class _Response:
         if self.status is not None:
             return self.status
         else:
-            return "{} {}".format(self.status_code, self.STATUS_CODE[self.status_code])
+            return "{} {}".format(self.status_code, self.STATUS_CODE.get(self.status_code, "NULL"))
 
     def _get_cookies(self):
         """获取 Cookies"""
